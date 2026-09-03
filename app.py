@@ -1,4 +1,3 @@
-import base64
 import json
 import os
 import pandas as pd
@@ -13,90 +12,19 @@ st.set_page_config(
 st.title("🛒 Internet Scavenger")
 st.subheader("Top Trending Products Across Amazon and Etsy")
 
-# Direct high-res Earth source URL matching your uploaded asset
-EARTH_IMG_URL = "https://www.freepnglogos.com/uploads/earth-png/earth-richmond-valley-ashrae-chapter-26.png"
-
-# --- EARTH GLOBE WITH ORBITING SATELLITES ---
-globe_html = f"""
+# --- INTERACTIVE 3D GLOBE FROM MAPPICKER ---
+mappicker_globe_html = """
 <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 10px 0;">
-    <div style="position: relative; width: 260px; height: 260px; display: flex; justify-content: center; align-items: center;">
-        
-        <!-- Earth Sphere from Provided Image -->
-        <div style="
-            position: relative;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: url('{EARTH_IMG_URL}') center/cover no-repeat;
-        "></div>
-
-        <!-- Orbit Ring 1 & Magenta Satellite -->
-        <div class="orbit-1">
-            <div class="sat-1"></div>
-        </div>
-
-        <!-- Orbit Ring 2 & Cyan Satellite -->
-        <div class="orbit-2">
-            <div class="sat-2"></div>
-        </div>
-
-    </div>
+    <iframe 
+        src="https://mappicker.com/3d" 
+        width="100%" 
+        height="350" 
+        style="border: none; border-radius: 12px; max-width: 800px; box-shadow: 0px 4px 12px rgba(0,0,0,0.3);"
+        allowfullscreen>
+    </iframe>
 </div>
-
-<style>
-    .orbit-1 {{
-        position: absolute;
-        width: 250px;
-        height: 80px;
-        border: 1.5px solid rgba(0, 210, 255, 0.7);
-        border-radius: 50%;
-        transform: rotate(-25deg);
-        animation: orbitSpin1 4s linear infinite;
-        pointer-events: none;
-    }}
-    .sat-1 {{
-        position: absolute;
-        top: -6px;
-        left: 50%;
-        width: 12px;
-        height: 12px;
-        background: #ff007f;
-        border-radius: 50%;
-        box-shadow: 0 0 6px #ff007f;
-    }}
-
-    .orbit-2 {{
-        position: absolute;
-        width: 80px;
-        height: 250px;
-        border: 1.5px solid rgba(0, 255, 204, 0.7);
-        border-radius: 50%;
-        transform: rotate(35deg);
-        animation: orbitSpin2 6s linear infinite;
-        pointer-events: none;
-    }}
-    .sat-2 {{
-        position: absolute;
-        top: 50%;
-        left: -6px;
-        width: 12px;
-        height: 12px;
-        background: #00ffcc;
-        border-radius: 50%;
-        box-shadow: 0 0 6px #00ffcc;
-    }}
-
-    @keyframes orbitSpin1 {{
-        0% {{ transform: rotate(-25deg) rotate(0deg); }}
-        100% {{ transform: rotate(-25deg) rotate(360deg); }}
-    }}
-    @keyframes orbitSpin2 {{
-        0% {{ transform: rotate(35deg) rotate(0deg); }}
-        100% {{ transform: rotate(35deg) rotate(360deg); }}
-    }}
-</style>
 """
-st.components.v1.html(globe_html, height=280)
+st.components.v1.html(mappicker_globe_html, height=370)
 
 
 @st.cache_data(ttl=3600)
