@@ -14,13 +14,7 @@ st.title("🛒 Internet Scavenger")
 st.subheader("Top Trending Products Across Amazon and Etsy")
 
 # --- AUTOMATIC LOCAL IMAGE TO BASE64 CONVERTER ---
-IMAGE_PATH = (
-    "globe.jpg"
-    if os.path.exists("globe.jpg")
-    else "globe.png"
-    if os.path.exists("globe.png")
-    else None
-)
+IMAGE_PATH = "globe.jpg" if os.path.exists("globe.jpg") else None
 
 img_base64 = ""
 if IMAGE_PATH:
@@ -63,10 +57,7 @@ if img_base64:
     """
   st.components.v1.html(globe_html, height=250)
 else:
-  st.warning(
-      "⚠️ Please save your globe image in the project folder and name it"
-      " 'globe.jpg'."
-  )
+  st.warning("⚠️ 'globe.jpg' not found in project directory.")
 
 
 @st.cache_data(ttl=3600)
