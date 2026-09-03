@@ -17,7 +17,6 @@ top_10 = [
         {"rank": 9, "name": "Stainless Steel Tumbler", "platform": "Amazon", "img_url": "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=500", "url": "https://amazon.com"},
         {"rank": 10, "name": "Aesthetic Handmade Mug", "platform": "Etsy", "img_url": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500", "url": "https://etsy.com"},
     ]
-    ]
     
     next_15 = [
         {
