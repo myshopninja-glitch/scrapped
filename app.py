@@ -1,3 +1,4 @@
+import base64
 import json
 import os
 import pandas as pd
@@ -12,18 +13,21 @@ st.set_page_config(
 st.title("🛒 Internet Scavenger")
 st.subheader("Top Trending Products Across Amazon and Etsy")
 
-# --- CLEAN EARTH GLOBE WITH ORBITING SATELLITES ---
-globe_html = """
+# Direct high-res Earth source URL matching your uploaded asset
+EARTH_IMG_URL = "https://www.freepnglogos.com/uploads/earth-png/earth-richmond-valley-ashrae-chapter-26.png"
+
+# --- EARTH GLOBE WITH ORBITING SATELLITES ---
+globe_html = f"""
 <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 10px 0;">
     <div style="position: relative; width: 260px; height: 260px; display: flex; justify-content: center; align-items: center;">
         
-        <!-- Clean Earth Sphere (No Shadow / No Glow) -->
+        <!-- Earth Sphere from Provided Image -->
         <div style="
             position: relative;
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/The_Earth_seen_from_Apollo_17.jpg/600px-The_Earth_seen_from_Apollo_17.jpg') center/cover no-repeat;
+            background: url('{EARTH_IMG_URL}') center/cover no-repeat;
         "></div>
 
         <!-- Orbit Ring 1 & Magenta Satellite -->
@@ -40,7 +44,7 @@ globe_html = """
 </div>
 
 <style>
-    .orbit-1 {
+    .orbit-1 {{
         position: absolute;
         width: 250px;
         height: 80px;
@@ -49,8 +53,8 @@ globe_html = """
         transform: rotate(-25deg);
         animation: orbitSpin1 4s linear infinite;
         pointer-events: none;
-    }
-    .sat-1 {
+    }}
+    .sat-1 {{
         position: absolute;
         top: -6px;
         left: 50%;
@@ -59,9 +63,9 @@ globe_html = """
         background: #ff007f;
         border-radius: 50%;
         box-shadow: 0 0 6px #ff007f;
-    }
+    }}
 
-    .orbit-2 {
+    .orbit-2 {{
         position: absolute;
         width: 80px;
         height: 250px;
@@ -70,8 +74,8 @@ globe_html = """
         transform: rotate(35deg);
         animation: orbitSpin2 6s linear infinite;
         pointer-events: none;
-    }
-    .sat-2 {
+    }}
+    .sat-2 {{
         position: absolute;
         top: 50%;
         left: -6px;
@@ -80,16 +84,16 @@ globe_html = """
         background: #00ffcc;
         border-radius: 50%;
         box-shadow: 0 0 6px #00ffcc;
-    }
+    }}
 
-    @keyframes orbitSpin1 {
-        0% { transform: rotate(-25deg) rotate(0deg); }
-        100% { transform: rotate(-25deg) rotate(360deg); }
-    }
-    @keyframes orbitSpin2 {
-        0% { transform: rotate(35deg) rotate(0deg); }
-        100% { transform: rotate(35deg) rotate(360deg); }
-    }
+    @keyframes orbitSpin1 {{
+        0% {{ transform: rotate(-25deg) rotate(0deg); }}
+        100% {{ transform: rotate(-25deg) rotate(360deg); }}
+    }}
+    @keyframes orbitSpin2 {{
+        0% {{ transform: rotate(35deg) rotate(0deg); }}
+        100% {{ transform: rotate(35deg) rotate(360deg); }}
+    }}
 </style>
 """
 st.components.v1.html(globe_html, height=280)
