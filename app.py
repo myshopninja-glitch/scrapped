@@ -14,7 +14,12 @@ st.title("🛒 Internet Scavenger")
 st.subheader("Top Trending Products Across Amazon and Etsy")
 
 # --- AUTOMATIC LOCAL IMAGE TO BASE64 CONVERTER ---
-IMAGE_PATH = "globe.jpg" if os.path.exists("globe.jpg") else None
+# --- AUTOMATIC LOCAL IMAGE TO BASE64 CONVERTER ---
+IMAGE_PATH = None
+for name in ["globe.jpg", "Globe.jpg", "GLOBE.JPG"]:
+  if os.path.exists(name):
+    IMAGE_PATH = name
+    break
 
 img_base64 = ""
 if IMAGE_PATH:
