@@ -12,19 +12,18 @@ st.set_page_config(
 st.title("🛒 Internet Scavenger")
 st.subheader("Top Trending Products Across Amazon and Etsy")
 
-# --- PHOTOREALISTIC EARTH GLOBE WITH ORBITING SATELLITES ---
+# --- CLEAN EARTH GLOBE WITH ORBITING SATELLITES ---
 globe_html = """
 <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 10px 0;">
     <div style="position: relative; width: 260px; height: 260px; display: flex; justify-content: center; align-items: center;">
         
-        <!-- Photorealistic Earth Sphere (No Outer Glow) -->
+        <!-- Clean Earth Sphere (No Shadow / No Glow) -->
         <div style="
             position: relative;
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: url('https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800') center/cover no-repeat;
-            box-shadow: inset -25px -20px 35px rgba(0, 0, 0, 0.85), inset 5px 5px 15px rgba(255, 255, 255, 0.2);
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/The_Earth_seen_from_Apollo_17.jpg/600px-The_Earth_seen_from_Apollo_17.jpg') center/cover no-repeat;
         "></div>
 
         <!-- Orbit Ring 1 & Magenta Satellite -->
@@ -45,7 +44,7 @@ globe_html = """
         position: absolute;
         width: 250px;
         height: 80px;
-        border: 1.5px solid rgba(0, 210, 255, 0.6);
+        border: 1.5px solid rgba(0, 210, 255, 0.7);
         border-radius: 50%;
         transform: rotate(-25deg);
         animation: orbitSpin1 4s linear infinite;
@@ -66,7 +65,7 @@ globe_html = """
         position: absolute;
         width: 80px;
         height: 250px;
-        border: 1.5px solid rgba(0, 255, 204, 0.6);
+        border: 1.5px solid rgba(0, 255, 204, 0.7);
         border-radius: 50%;
         transform: rotate(35deg);
         animation: orbitSpin2 6s linear infinite;
