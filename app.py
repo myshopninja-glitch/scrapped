@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 st.title("🛒 Internet Scavenger")
-st.subheader("Top Trending Products Across E-Commerce Platforms")
+st.subheader("Top Trending Products Across Amazon and Etsy")
 
 
 @st.cache_data(ttl=3600)
@@ -29,80 +29,77 @@ def load_data():
             },
             {
                 "rank": 2,
-                "name": "Sunset Lamp",
-                "platform": "TikTok Shop",
-                "img_url": "https://images.unsplash.com/photo-1507499739999-097706ad8914?w=500",
-                "url": "https://www.tiktok.com/search?q=sunset%20lamp",
-            },
-            {
-                "rank": 3,
-                "name": "Label Printer",
-                "platform": "AliExpress",
-                "img_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500",
-                "url": "https://www.aliexpress.com/wholesale?SearchText=mini+label+printer",
-            },
-            {
-                "rank": 4,
-                "name": "Custom Hoodie",
+                "name": "Custom Embroidered Hoodie",
                 "platform": "Etsy",
                 "img_url": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500",
                 "url": "https://www.etsy.com/search?q=custom+embroidered+hoodie",
             },
             {
-                "rank": 5,
+                "rank": 3,
                 "name": "Fitness Tracker",
                 "platform": "Amazon",
                 "img_url": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500",
                 "url": "https://www.amazon.com/s?k=smart+fitness+tracker",
             },
             {
-                "rank": 6,
-                "name": "Neck Massager",
-                "platform": "TikTok Shop",
-                "img_url": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500",
-                "url": "https://www.tiktok.com/search?q=thermal+neck+massager",
-            },
-            {
-                "rank": 7,
-                "name": "Desk Glow Light",
-                "platform": "AliExpress",
-                "img_url": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500",
-                "url": "https://www.aliexpress.com/wholesale?SearchText=led+ambient+light+bar",
-            },
-            {
-                "rank": 8,
-                "name": "Leather Keychain",
+                "rank": 4,
+                "name": "Personalized Leather Keychain",
                 "platform": "Etsy",
                 "img_url": "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500",
                 "url": "https://www.etsy.com/search?q=personalized+leather+keychain",
             },
             {
-                "rank": 9,
-                "name": "Insulated Tumbler",
+                "rank": 5,
+                "name": "Insulated Stainless Tumbler",
                 "platform": "Amazon",
                 "img_url": "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=500",
                 "url": "https://www.amazon.com/s?k=stainless+steel+tumbler",
             },
             {
-                "rank": 10,
-                "name": "Ceramic Mug",
+                "rank": 6,
+                "name": "Aesthetic Handmade Mug",
                 "platform": "Etsy",
                 "img_url": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500",
                 "url": "https://www.etsy.com/search?q=handmade+ceramic+mug",
+            },
+            {
+                "rank": 7,
+                "name": "Bluetooth Portable Speaker",
+                "platform": "Amazon",
+                "img_url": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500",
+                "url": "https://www.amazon.com/s?k=bluetooth+speaker",
+            },
+            {
+                "rank": 8,
+                "name": "Handmade Soy Candle",
+                "platform": "Etsy",
+                "img_url": "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500",
+                "url": "https://www.etsy.com/search?q=handmade+soy+candle",
+            },
+            {
+                "rank": 9,
+                "name": "Ergonomic Desk Mat",
+                "platform": "Amazon",
+                "img_url": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
+                "url": "https://www.amazon.com/s?k=desk+pad+mat",
+            },
+            {
+                "rank": 10,
+                "name": "Customized Tote Bag",
+                "platform": "Etsy",
+                "img_url": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500",
+                "url": "https://www.etsy.com/search?q=customized+tote+bag",
             },
         ]
         mock_next_15 = [
             {
                 "Place Number": i,
                 "Product Name": f"Up-and-Coming Item #{i}",
-                "Source Platform": [
-                    "Amazon",
-                    "TikTok Shop",
-                    "AliExpress",
-                    "Etsy",
-                ][i % 4],
+                "Source Platform": ["Amazon", "Etsy"][i % 2],
                 "Sales Volume": 2000 - (i * 60),
-                "Item Link": f"https://www.amazon.com/s?k=trending+product+{i}",
+                "Item Link": f"https://www.amazon.com/s?k=trending+product+{i}"
+                if i % 2 == 0
+                else f"https://www.etsy.com/search?q=trending+product+{i}",
             }
             for i in range(11, 26)
         ]
@@ -117,7 +114,6 @@ cols = st.columns(5)
 for idx, item in enumerate(data.get("top_10", [])):
     col = cols[idx % 5]
     with col:
-        # Wrap image inside an HTML anchor tag to make the photo directly clickable
         clickable_image = f"""
         <a href="{item['url']}" target="_blank">
             <img src="{item['img_url']}" style="width:100%; border-radius:10px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
