@@ -13,55 +13,53 @@ st.set_page_config(
 st.title("🛒 Internet Scavenger")
 st.subheader("Top Trending Products Across Amazon and Etsy")
 
-# --- CONVERT LOCAL IMAGE TO BASE64 DATA URL ---
-IMAGE_PATH = "globe.png"  # Save your screenshot in the project directory as globe.png
+# Base64 SVG texture of Earth to guarantee zero missing file/URL issues
+EARTH_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+<rect width="100%" height="100%" fill="#0a1128"/>
+<circle cx="250" cy="250" r="240" fill="#1b2a4a"/>
+<path d="M150 80 Q 200 40, 270 70 T 350 150 T 280 230 T 180 180 Z" fill="#2d6a4f"/>
+<path d="M220 250 Q 290 220, 340 300 T 310 420 T 230 440 T 190 330 Z" fill="#2d6a4f"/>
+<path d="M80 200 Q 130 180, 150 240 T 110 320 T 60 260 Z" fill="#2d6a4f"/>
+<path d="M360 120 Q 420 100, 440 180 T 380 220 Z" fill="#2d6a4f"/>
+<path d="M180 90 Q 230 60, 280 100 T 200 160 Z" fill="#52b788"/>
+<path d="M240 280 Q 300 250, 320 330 T 250 400 Z" fill="#52b788"/>
+</svg>"""
 
+b64_earth = base64.b64encode(EARTH_SVG.encode("utf-8")).decode("utf-8")
 
-def get_base64_image(image_path):
-    if os.path.exists(image_path):
-        with open(image_path, "rb") as img_file:
-            return base64.b64encode(img_file.read()).decode()
-    return ""
-
-
-img_base64 = get_base64_image(IMAGE_PATH)
-
-# --- ROTATING EXACT GLOBE COMPONENT ---
-if img_base64:
-    globe_html = f"""
-    <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 10px 0;">
-        <div class="globe-wrapper">
-            <img src="data:image/png;base64,{img_base64}" class="rotating-globe">
-        </div>
+# --- ROTATING GLOBE COMPONENT ---
+globe_html = f"""
+<div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 10px 0;">
+    <div class="globe-wrapper">
+        <img src="data:image/svg+xml;base64,{b64_earth}" class="rotating-globe">
     </div>
+</div>
 
-    <style>
-        .globe-wrapper {{
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-        }}
-        .rotating-globe {{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            animation: spin 20s linear infinite;
-        }}
-        @keyframes spin {{
-            0% {{ transform: rotate(0deg); }}
-            100% {{ transform: rotate(360deg); }}
-        }}
-    </style>
-    """
-    st.components.v1.html(globe_html, height=250)
-else:
-    st.warning("Please save your globe screenshot as 'globe.png' in the root project folder.")
+<style>
+    .globe-wrapper {{
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: inset -15px -15px 30px rgba(0,0,0,0.7), 0 0 15px rgba(0,0,0,0.5);
+    }}
+    .rotating-globe {{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        animation: spin 20s linear infinite;
+    }}
+    @keyframes spin {{
+        0% {{ transform: rotate(0deg); }}
+        100% {{ transform: rotate(360deg); }}
+    }}
+</style>
+"""
+st.components.v1.html(globe_html, height=250)
 
 
 @st.cache_data(ttl=3600)
