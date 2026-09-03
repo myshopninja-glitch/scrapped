@@ -1,17 +1,22 @@
-# Internet Scavenger Dashboard
+# 🌐 Product Trend Tracker Dashboard
 
-A fully functional Streamlit application designed in the visual style of a Hi-Fi realistic Diablo 2 LOD central hub display.
+An automated Streamlit web application that tracks and displays top-selling and up-and-coming items across **Amazon**, **TikTok Shop**, **AliExpress**, and **Etsy**.
 
-## Features Included
-- **Dark Fantasy UI:** Custom CSS injections simulate gothic frames, dark stone backgrounds, and glowing text.
-- **Top 15 Ranking Grid:** Browse the top-selling items from Amazon, Etsy, and TikTok Shop. Click any item to swap its details into the main central altar.
-- **Interactive Metric Graphs:** Uses Plotly to render the 7-day sales graph for whichever item is selected.
-- **Active Links & Thumbnails:** Mock sub-images built into the dashboard that enlarge natively on Streamlit when clicked.
+---
 
-## How to Run Locally
+## 🚀 Key Features
 
-1. Ensure Python 3.9+ is installed.
-2. Clone this repository to your local machine.
-3. Open your terminal in the project folder and install the dependencies:
+* **Interactive Satellite Radar:** WebGL Three.js 3D globe visualization in header.
+* **Top 10 Display:** Prominent center alignment for #1 item, followed by a 3x3 grid for items #2–#10.
+* **Direct Image Links:** Clickable images redirecting directly to source product pages.
+* **Next 15 Up-and-Coming Items:** Ranked table with place numbers, sales counts, platform labels, and direct purchase links.
+* **Hourly EST Synchronization:** Automated data updates on Eastern Standard Time.
+
+---
+
+## 🛠️ Local Setup Instructions
+
+1. Clone the repository:
    ```bash
-   pip install -r requirements.txt
+   git clone [https://github.com/myshopninja-glitch/scrapped.git](https://github.com/myshopninja-glitch/scrapped.git)
+   cd scrapped
