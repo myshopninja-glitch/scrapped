@@ -123,17 +123,19 @@ def load_data():
             return json.load(f)
     else:
         # Fallback Mock Data
-        mock_top_10 = [
-            {"rank": 1, "name": "Wireless Headphones", "platform": "Amazon", "img_url": "https://via.placeholder.com/300x300?text=Rank+1", "url": "https://amazon.com"},
-            {"rank": 2, "name": "Sunset Lamp", "platform": "TikTok Shop", "img_url": "https://via.placeholder.com/150x150?text=Rank+2", "url": "https://tiktok.com"},
-            {"rank": 3, "name": "Label Printer", "platform": "AliExpress", "img_url": "https://via.placeholder.com/150x150?text=Rank+3", "url": "https://aliexpress.com"},
-            {"rank": 4, "name": "Custom Hoodie", "platform": "Etsy", "img_url": "https://via.placeholder.com/150x150?text=Rank+4", "url": "https://etsy.com"},
-            {"rank": 5, "name": "Fitness Tracker", "platform": "Amazon", "img_url": "https://via.placeholder.com/150x150?text=Rank+5", "url": "https://amazon.com"},
-            {"rank": 6, "name": "Neck Massager", "platform": "TikTok Shop", "img_url": "https://via.placeholder.com/150x150?text=Rank+6", "url": "https://tiktok.com"},
-            {"rank": 7, "name": "Desk Glow Light", "platform": "AliExpress", "img_url": "https://via.placeholder.com/150x150?text=Rank+7", "url": "https://aliexpress.com"},
-            {"rank": 8, "name": "Leather Keychain", "platform": "Etsy", "img_url": "https://via.placeholder.com/150x150?text=Rank+8", "url": "https://etsy.com"},
-            {"rank": 9, "name": "Insulated Tumbler", "platform": "Amazon", "img_url": "https://via.placeholder.com/150x150?text=Rank+9", "url": "https://amazon.com"},
-            {"rank": 10, "name": "Ceramic Mug", "platform": "Etsy", "img_url": "https://via.placeholder.com/150x150?text=Rank+10", "url": "https://etsy.com"},
+# Replace the mock_top_10 list inside load_data() with these valid image URLs:
+mock_top_10 = [
+    {"rank": 1, "name": "Wireless Headphones", "platform": "Amazon", "img_url": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500", "url": "https://amazon.com"},
+    {"rank": 2, "name": "Sunset Lamp", "platform": "TikTok Shop", "img_url": "https://images.unsplash.com/photo-1507499739999-097706ad8914?w=500", "url": "https://tiktok.com"},
+    {"rank": 3, "name": "Label Printer", "platform": "AliExpress", "img_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500", "url": "https://aliexpress.com"},
+    {"rank": 4, "name": "Custom Hoodie", "platform": "Etsy", "img_url": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", "url": "https://etsy.com"},
+    {"rank": 5, "name": "Fitness Tracker", "platform": "Amazon", "img_url": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500", "url": "https://amazon.com"},
+    {"rank": 6, "name": "Neck Massager", "platform": "TikTok Shop", "img_url": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500", "url": "https://tiktok.com"},
+    {"rank": 7, "name": "Desk Glow Light", "platform": "AliExpress", "img_url": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500", "url": "https://aliexpress.com"},
+    {"rank": 8, "name": "Leather Keychain", "platform": "Etsy", "img_url": "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500", "url": "https://etsy.com"},
+    {"rank": 9, "name": "Insulated Tumbler", "platform": "Amazon", "img_url": "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=500", "url": "https://amazon.com"},
+    {"rank": 10, "name": "Ceramic Mug", "platform": "Etsy", "img_url": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500", "url": "https://etsy.com"},
+]
         ]
         mock_next_15 = [
             {"Place Number": i, "Product Name": f"Up-and-Coming Item #{i}", "Source Platform": ["Amazon", "TikTok Shop", "AliExpress", "Etsy"][i % 4], "Sales Volume": 2000 - (i * 60), "Item Link": f"https://example.com/item_{i}"}
