@@ -12,114 +12,84 @@ st.set_page_config(
 st.title("🛒 Internet Scavenger")
 st.subheader("Top Trending Products Across Amazon and Etsy")
 
-# --- GUARANTEED SVG VECTOR GLOBE (NO CORS / NO EXTERNAL TEXTURE DEPENDENCY) ---
+# --- PHOTOREALISTIC EARTH GLOBE WITH ORBITING SATELLITES ---
 globe_html = """
 <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 10px 0;">
     <div style="position: relative; width: 260px; height: 260px; display: flex; justify-content: center; align-items: center;">
         
-        <!-- SVG Vector Globe -->
-        <svg viewBox="0 0 200 200" style="width: 200px; height: 200px; filter: drop-shadow(0px 0px 15px rgba(0, 195, 255, 0.4));">
-            <defs>
-                <radialGradient id="oceanGrad" cx="30%" cy="30%" r="70%">
-                    <stop offset="0%" stop-color="#1e3c72" />
-                    <stop offset="100%" stop-color="#0a1128" />
-                </radialGradient>
-                <clipPath id="globeClip">
-                    <circle cx="100" cy="100" r="95" />
-                </clipPath>
-            </defs>
-            
-            <!-- Sphere Base -->
-            <circle cx="100" cy="100" r="95" fill="url(#oceanGrad)" stroke="#00f2fe" stroke-width="1.5"/>
-            
-            <!-- Rotating Map Landmasses -->
-            <g clip-path="url(#globeClip)">
-                <g class="spin-continents" fill="#20bf6b" opacity="0.85">
-                    <!-- Continents Group 1 -->
-                    <path d="M 30 50 Q 50 30 70 60 T 90 110 T 50 140 T 20 90 Z" />
-                    <path d="M 120 40 Q 150 20 170 50 T 160 100 T 130 80 Z" />
-                    <path d="M 110 120 Q 140 110 150 150 T 120 170 Z" />
-                    <!-- Continents Group 2 (Repeated for seamless loop) -->
-                    <path d="M 230 50 Q 250 30 270 60 T 290 110 T 250 140 T 220 90 Z" />
-                    <path d="M 320 40 Q 350 20 370 50 T 360 100 T 330 80 Z" />
-                    <path d="M 310 120 Q 340 110 350 150 T 320 170 Z" />
-                </g>
-                <!-- Grid Lines -->
-                <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-                <ellipse cx="100" cy="100" rx="95" ry="35" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-                <ellipse cx="100" cy="100" rx="95" ry="70" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-                <line x1="100" y1="5" x2="100" y2="195" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            </g>
-        </svg>
+        <!-- Photorealistic Earth Sphere (No Outer Glow) -->
+        <div style="
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: url('https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800') center/cover no-repeat;
+            box-shadow: inset -25px -20px 35px rgba(0, 0, 0, 0.85), inset 5px 5px 15px rgba(255, 255, 255, 0.2);
+        "></div>
 
-        <!-- Equatorial Orbit & Satellite -->
-        <div class="orbit-eq">
+        <!-- Orbit Ring 1 & Magenta Satellite -->
+        <div class="orbit-1">
             <div class="sat-1"></div>
         </div>
 
-        <!-- Polar Orbit & Satellite -->
-        <div class="orbit-pol">
+        <!-- Orbit Ring 2 & Cyan Satellite -->
+        <div class="orbit-2">
             <div class="sat-2"></div>
         </div>
+
     </div>
 </div>
 
 <style>
-    .spin-continents {
-        animation: rotateMap 18s linear infinite;
-    }
-    @keyframes rotateMap {
-        0% { transform: translateX(0px); }
-        100% { transform: translateX(-200px); }
-    }
-
-    .orbit-eq {
+    .orbit-1 {
         position: absolute;
         width: 250px;
-        height: 70px;
-        border: 1.5px solid rgba(0, 242, 254, 0.5);
+        height: 80px;
+        border: 1.5px solid rgba(0, 210, 255, 0.6);
         border-radius: 50%;
-        transform: rotate(-20deg);
-        animation: orbitSpin1 5s linear infinite;
+        transform: rotate(-25deg);
+        animation: orbitSpin1 4s linear infinite;
+        pointer-events: none;
     }
     .sat-1 {
         position: absolute;
-        top: -5px;
+        top: -6px;
         left: 50%;
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
         background: #ff007f;
         border-radius: 50%;
-        box-shadow: 0 0 8px #ff007f;
+        box-shadow: 0 0 6px #ff007f;
     }
 
-    .orbit-pol {
+    .orbit-2 {
         position: absolute;
-        width: 70px;
+        width: 80px;
         height: 250px;
-        border: 1.5px solid rgba(0, 255, 204, 0.5);
+        border: 1.5px solid rgba(0, 255, 204, 0.6);
         border-radius: 50%;
-        transform: rotate(30deg);
-        animation: orbitSpin2 7s linear infinite;
+        transform: rotate(35deg);
+        animation: orbitSpin2 6s linear infinite;
+        pointer-events: none;
     }
     .sat-2 {
         position: absolute;
         top: 50%;
-        left: -5px;
-        width: 9px;
-        height: 9px;
+        left: -6px;
+        width: 12px;
+        height: 12px;
         background: #00ffcc;
         border-radius: 50%;
-        box-shadow: 0 0 8px #00ffcc;
+        box-shadow: 0 0 6px #00ffcc;
     }
 
     @keyframes orbitSpin1 {
-        0% { transform: rotate(-20deg) rotate(0deg); }
-        100% { transform: rotate(-20deg) rotate(360deg); }
+        0% { transform: rotate(-25deg) rotate(0deg); }
+        100% { transform: rotate(-25deg) rotate(360deg); }
     }
     @keyframes orbitSpin2 {
-        0% { transform: rotate(30deg) rotate(0deg); }
-        100% { transform: rotate(30deg) rotate(360deg); }
+        0% { transform: rotate(35deg) rotate(0deg); }
+        100% { transform: rotate(35deg) rotate(360deg); }
     }
 </style>
 """
