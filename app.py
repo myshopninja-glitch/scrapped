@@ -135,7 +135,7 @@ mock_top_10 = [
     {"rank": 8, "name": "Leather Keychain", "platform": "Etsy", "img_url": "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500", "url": "https://etsy.com"},
     {"rank": 9, "name": "Insulated Tumbler", "platform": "Amazon", "img_url": "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=500", "url": "https://amazon.com"},
     {"rank": 10, "name": "Ceramic Mug", "platform": "Etsy", "img_url": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500", "url": "https://etsy.com"},
-]
+        ]
         mock_next_15 = [
             {"Place Number": i, "Product Name": f"Up-and-Coming Item #{i}", "Source Platform": ["Amazon", "TikTok Shop", "AliExpress", "Etsy"][i % 4], "Sales Volume": 2000 - (i * 60), "Item Link": f"https://example.com/item_{i}"}
             for i in range(11, 26)
