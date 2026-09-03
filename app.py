@@ -12,84 +12,96 @@ st.set_page_config(
 st.title("🛒 Internet Scavenger")
 st.subheader("Top Trending Products Across Amazon and Etsy")
 
-# --- RELIABLE REALISTIC ROTATING EARTH WITH ORBITING SATELLITES ---
+# --- THREE.JS PHOTOREALISTIC 3D GLOBE WITH SATELLITES ---
 globe_html = """
-<div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 20px;">
-    <div style="position: relative; width: 300px; height: 300px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-        
-        <!-- Rotating Realistic Earth Sphere -->
-        <div id="earth" style="
-            width: 200px; 
-            height: 200px; 
-            border-radius: 50%; 
-            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Land_ocean_ice_2048.jpg/1024px-Land_ocean_ice_2048.jpg');
-            background-size: cover;
-            box-shadow: inset -30px -20px 40px rgba(0,0,0,0.9), 0 0 25px rgba(0, 195, 255, 0.4);
-            animation: spin 25s linear infinite;
-        "></div>
+<div id="globe-container" style="width: 100%; height: 350px; display: flex; justify-content: center; align-items: center;"></div>
 
-        <!-- Equatorial Orbit Ring & Satellite -->
-        <div style="
-            position: absolute; 
-            width: 270px; 
-            height: 80px; 
-            border: 1.5px solid rgba(0, 242, 254, 0.35); 
-            border-radius: 50%; 
-            transform: rotate(-15deg);
-            animation: orbit1 6s linear infinite;
-        ">
-            <div style="
-                position: absolute; 
-                top: -5px; 
-                left: 50%; 
-                width: 10px; 
-                height: 10px; 
-                background: #ff007f; 
-                border-radius: 50%; 
-                box-shadow: 0 0 10px #ff007f;
-            "></div>
-        </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+    const container = document.getElementById('globe-container');
+    const scene = new THREE.Scene();
+    
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / 350, 0.1, 1000);
+    camera.position.z = 320;
 
-        <!-- Polar Orbit Ring & Satellite -->
-        <div style="
-            position: absolute; 
-            width: 80px; 
-            height: 270px; 
-            border: 1.5px solid rgba(0, 255, 204, 0.35); 
-            border-radius: 50%; 
-            transform: rotate(25deg);
-            animation: orbit2 8s linear infinite;
-        ">
-            <div style="
-                position: absolute; 
-                top: 50%; 
-                left: -5px; 
-                width: 9px; 
-                height: 9px; 
-                background: #00ffcc; 
-                border-radius: 50%; 
-                box-shadow: 0 0 10px #00ffcc;
-            "></div>
-        </div>
-    </div>
-</div>
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(container.clientWidth, 350);
+    container.appendChild(renderer.domElement);
 
-<style>
-    @keyframes spin {
-        0% { background-position: 0 0; }
-        100% { background-position: 1024px 0; }
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    dirLight.position.set(5, 3, 5);
+    scene.add(dirLight);
+
+    // 3D Earth Globe
+    const geometry = new THREE.SphereGeometry(80, 64, 64);
+    const textureLoader = new THREE.TextureLoader();
+    
+    // Photorealistic NASA Earth Map
+    const earthTexture = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg');
+    const material = new THREE.MeshPhongMaterial({
+        map: earthTexture,
+        shininess: 15
+    });
+
+    const earth = new THREE.Mesh(geometry, material);
+    scene.add(earth);
+
+    // Orbit 1 (Equatorial Ring & Satellite)
+    const orbit1Geo = new THREE.RingGeometry(110, 111, 64);
+    const orbit1Mat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, side: THREE.DoubleSide, opacity: 0.4, transparent: true });
+    const orbit1 = new THREE.Mesh(orbit1Geo, orbit1Mat);
+    orbit1.rotation.x = Math.PI / 2.3;
+    scene.add(orbit1);
+
+    const sat1Geo = new THREE.SphereGeometry(4, 16, 16);
+    const sat1Mat = new THREE.MeshBasicMaterial({ color: 0xff007f });
+    const sat1 = new THREE.Mesh(sat1Geo, sat1Mat);
+    scene.add(sat1);
+
+    // Orbit 2 (Polar Ring & Satellite)
+    const orbit2Geo = new THREE.RingGeometry(115, 116, 64);
+    const orbit2Mat = new THREE.MeshBasicMaterial({ color: 0x00ffcc, side: THREE.DoubleSide, opacity: 0.4, transparent: true });
+    const orbit2 = new THREE.Mesh(orbit2Geo, orbit2Mat);
+    orbit2.rotation.y = Math.PI / 3;
+    scene.add(orbit2);
+
+    const sat2Geo = new THREE.SphereGeometry(3.5, 16, 16);
+    const sat2Mat = new THREE.MeshBasicMaterial({ color: 0x00ffcc });
+    scene.add(sat2Mat);
+    scene.add(sat2);
+
+    let angle1 = 0;
+    let angle2 = 0;
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Rotate Earth
+        earth.rotation.y += 0.003;
+
+        // Satellite 1 Positioning
+        angle1 += 0.02;
+        sat1.position.x = Math.cos(angle1) * 110;
+        sat1.position.z = Math.sin(angle1) * 110;
+        sat1.position.y = Math.sin(angle1) * 30;
+
+        // Satellite 2 Positioning
+        angle2 += 0.015;
+        sat2.position.x = Math.sin(angle2) * 50;
+        sat2.position.y = Math.cos(angle2) * 115;
+        sat2.position.z = Math.sin(angle2) * 100;
+
+        renderer.render(scene, camera);
     }
-    @keyframes orbit1 {
-        0% { transform: rotate(-15deg) rotate(0deg); }
-        100% { transform: rotate(-15deg) rotate(360deg); }
-    }
-    @keyframes orbit2 {
-        0% { transform: rotate(25deg) rotate(0deg); }
-        100% { transform: rotate(25deg) rotate(360deg); }
-    }
-</style>
+
+    animate();
+</script>
 """
-st.components.v1.html(globe_html, height=330)
+st.components.v1.html(globe_html, height=360)
 
 
 @st.cache_data(ttl=3600)
@@ -193,7 +205,7 @@ st.header("🔥 Top 10 Hot Products")
 if top_10:
     left_col, right_col = st.columns([2.5, 3])
 
-    # #1 PROMINENT HERO ITEM
+    # #1 PROMINENT HERO PRODUCT
     with left_col:
         item_1 = top_10[0]
         st.markdown("### 🏆 #1 Top Trending")
@@ -208,7 +220,7 @@ if top_10:
         """
         st.markdown(hero_html, unsafe_allow_html=True)
 
-    # REMAINING 9 ITEMS (1/4 scaled size in 3x3 grid)
+    # REMAINING 9 PRODUCTS (1/4 scaled size in 3x3 grid)
     with right_col:
         st.markdown("### ⚡ Trending Runners-Up")
         grid_items = top_10[1:10]
